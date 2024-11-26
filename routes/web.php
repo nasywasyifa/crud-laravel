@@ -1,9 +1,14 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KalkulatorController;
 use App\Http\Controllers\LatihanController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+
+use function Pest\Laravel\delete;
 
 // /(slash): default route
 // methode get, post, put, deleted
@@ -11,11 +16,13 @@ use Illuminate\Support\Facades\Route;
 // post : mengirim data dari form (insert, update)
 // put : mengirim data dari form (update)
 // deleted : mengirim data dari form (deleted)
+Route::get('/', [LoginController::class, 'index']);
+Route::post('actionLogin', [LoginController::class, 'actionLogin'])->name('actionLogin');
 
-Route::get('/', function () {
-    return "duar";
+//grouping routing
+Route::middleware(['auth'])->group(function () {
+    Route::resource('dashboard', DashboardController::class);
 });
-
 
 Route::get('latihan', [LatihanController::class, 'index']);
 Route::get('edit/{id}', [LatihanController::class, 'edit']);
@@ -33,3 +40,4 @@ Route::post('strore-kali', [KalkulatorController::class, 'storeKali'])->name('st
 Route::post('strore-bagi', [KalkulatorController::class, 'storeBagi'])->name('store-bagi');
 
 Route::resource('user', UsersController::class);
+Route::get('delete/{id}', [UsersController::class, 'delete'])->name('delete');
