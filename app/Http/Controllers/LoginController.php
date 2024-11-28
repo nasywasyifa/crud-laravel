@@ -21,4 +21,10 @@ class LoginController extends Controller
             return back()->withErrors(['email' => 'Mohon periksa kembali email dan password anda!'])->withInput();
         }
     }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->to('login');
+    }
 }

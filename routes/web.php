@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KalkulatorController;
 use App\Http\Controllers\LatihanController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\TransOrderController;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -17,11 +20,16 @@ use function Pest\Laravel\delete;
 // put : mengirim data dari form (update)
 // deleted : mengirim data dari form (deleted)
 Route::get('/', [LoginController::class, 'index']);
+Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::post('actionLogin', [LoginController::class, 'actionLogin'])->name('actionLogin');
+Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 //grouping routing
 Route::middleware(['auth'])->group(function () {
     Route::resource('dashboard', DashboardController::class);
+    Route::resource('service', ServiceController::class);
+    Route::resource('customer', CustomerController::class);
+    Route::resource('trans_order', TransOrderController::class);
 });
 
 Route::get('latihan', [LatihanController::class, 'index']);

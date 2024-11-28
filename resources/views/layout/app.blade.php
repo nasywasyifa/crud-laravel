@@ -89,7 +89,7 @@
                 @yield('content')
               </div>
               <!-- / Content -->
-
+              <div class="content-backdrop fade"></div>
               <!-- Footer -->
               <footer class="content-footer footer bg-footer-theme">
                 <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
@@ -122,8 +122,6 @@
                 </div>
               </footer>
               <!-- / Footer -->
-
-              <div class="content-backdrop fade"></div>
             </div>
             <!-- Content wrapper -->
           </div>
@@ -158,5 +156,21 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     @include('sweetalert::alert', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
 
+    <script>
+      // let button = document.querySelector('.add-row');
+      $('.add-row').click(function(e){
+        e.preventDefault();
+        let newRow = "";
+        newRow += "<tr>";
+        newRow += "<td>ini td 1</td>";
+        newRow += "<td>ini td 2</td>";
+        newRow += "<td>ini td 3</td>";
+        newRow += "<td>ini td 4</td>";
+        newRow += "<tr>";
+
+        let tbody = $('.tbody-parent');
+        tbody.append(newRow);
+    });
+    </script>
   </body>
 </html>
